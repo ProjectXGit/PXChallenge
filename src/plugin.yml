@@ -1,0 +1,5 @@
+name: PXChallenge
+main: net.projectx.challenge.main.Main
+version: Alpha
+author: Iclipse
+api-version: 1.14

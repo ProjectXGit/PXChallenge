@@ -1,8 +1,7 @@
 package net.projectx.challenge.functions.inventorys;
 
 
-import net.projectx.api.main.PXAPI;
-import net.projectx.api.util.ItemStackBuilder;
+
 import net.projectx.api.util.menu.MenuItem;
 import net.projectx.api.util.menu.PopupMenu;
 import org.bukkit.Material;
@@ -12,12 +11,12 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
 import static net.projectx.api.main.Data.symbol;
+import static net.projectx.challenge.main.Data.rows;
 
 /**
  * Created by Yannick on 30.10.2019 with IntelliJ for PXCode.
  */
 public class SettingsInventory extends PopupMenu implements Listener{
-    static int rows = 4;
     //DesignZiel der Challenge, Herausforderungp
     public SettingsInventory(Player p){
         super("§l" + symbol + "§e§lEinstellungen", rows);
@@ -26,29 +25,26 @@ public class SettingsInventory extends PopupMenu implements Listener{
         addMenuItem(new MenuItem("§e§lGamerules", new ItemStack(Material.REDSTONE_TORCH)) {
 
             @Override
-            public void onLeftClick(Player player) {
-                closeMenu(p);
+            public void onClick(InventoryClickEvent event) {
                 new GameruleInventory(p);
             }
 
+        }, 17);
+
+        addMenuItem(new MenuItem("§e§1Anzeige", new ItemStack(Material.NAME_TAG)) {
             @Override
-            public void onRightClick(Player player) {
-                closeMenu(p);
-                new GameruleInventory(p);
+            public void onClick(InventoryClickEvent event) {
+                new DisplayInventory(p);
             }
-        }, 18);
+        }, 10);
 
 
         for(int i = 0; i < rows * 9; i++){
-            addMenuItem(new MenuItem("", new ItemStack(Material.GRAY_STAINED_GLASS_PANE)){
+            addMenuItem(new MenuItem(" ", new ItemStack(Material.LIGHT_GRAY_STAINED_GLASS_PANE)) {
                 @Override
-                public void onLeftClick(Player player) {
+                public void onClick(InventoryClickEvent event) {
                 }
 
-                @Override
-                public void onRightClick(Player player) {
-
-                }
 
 
             }, i);

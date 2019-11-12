@@ -13,4 +13,5 @@ public class Data {
     public static boolean timerrunning = false;
     public static HashMap<Location, Integer> fireworks = new HashMap<>();
     public static Plugin instance;
+    public static int rows = 4;
 }

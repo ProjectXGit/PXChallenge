@@ -2,10 +2,14 @@ package net.projectx.challenge.functions;
 
 import net.projectx.challenge.main.Data;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.event.entity.PlayerDeathEvent;
 
 import java.text.DecimalFormat;
 
@@ -25,6 +29,23 @@ public class ChallengeListener implements Listener {
                 Bukkit.broadcastMessage(prefix + "Der §2§lEnderdrache§7 wurde getötet!");
 
             }
+        }
+    }
+
+    @EventHandler
+    public void onDeath(PlayerDeathEvent e) {
+        Bukkit.getOnlinePlayers().forEach(entry -> {
+            entry.setGameMode(GameMode.SPECTATOR);
+        });
+        Bukkit.broadcastMessage(prefix + "§6Die Challenge wurde nicht geschafft, da §e" + e.getEntity().getName() + "§6 gestorben ist!");
+        Data.timerrunning = false;
+    }
+
+    @EventHandler
+    public void onDamage(EntityDamageEvent e) {
+        if (e.getEntity() instanceof Player) {
+            Player p = (Player) e.getEntity();
+            Bukkit.broadcastMessage(prefix + "§e" + p.getName() + "§6 hat §e" + (int) e.getDamage() / 2.0 + "§6 Herzen Schaden durch §e" + e.getCause() + "§6 bekommen!°");
         }
     }
 
